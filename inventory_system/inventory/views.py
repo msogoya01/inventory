@@ -68,6 +68,21 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'inventory/product_form.html'
     success_url = reverse_lazy('product_list')
 
+    def form_valid(self, form):
+        old_quantity = self.get_object().quantity
+        response = super().form_valid(form)
+        new_quantity = form.instance.quantity
+        # If quantity increased, mark related SupplierOrder as delivered
+        if new_quantity > old_quantity:
+            from django.utils import timezone
+            SupplierOrder = self.model._meta.apps.get_model('inventory', 'SupplierOrder')
+            # Find pending orders for this product
+            pending_orders = SupplierOrder.objects.filter(product=form.instance, actual_delivery_date__isnull=True)
+            for order in pending_orders:
+                order.actual_delivery_date = timezone.now().date()
+                order.save()
+        return response
+
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'inventory/product_confirm_delete.html'
