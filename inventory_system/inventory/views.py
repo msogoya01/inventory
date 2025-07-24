@@ -1,7 +1,7 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.db.models import F, Count, Avg, Min, Max
+from django.db.models import F, Count, Avg, Min, Max, Sum
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Product, Supplier, Sale, SupplierOrder
@@ -95,29 +95,24 @@ class SupplierDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'inventory/supplier_confirm_delete.html'
     success_url = reverse_lazy('supplier_list')
 
-class SupplierAnalyticsView(LoginRequiredMixin, ListView):
-    model = Supplier
-    template_name = 'inventory/supplier_analytics.html'
-    context_object_name = 'suppliers'
+class SalesAnalyticsView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'inventory/sales_analytics.html'
+    context_object_name = 'products'
 
     def get_queryset(self):
-        return Supplier.objects.annotate(
-            total_products=Count('product'),
-            total_sales=Count('product__sale'),
-        )
+        return Product.objects.annotate(total_sold=Sum('sale__quantity')).order_by('-total_sold')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Example: Add more analytics here, e.g., average sales per supplier
-        context['supplier_stats'] = [
-            {
-                'supplier': supplier,
-                'total_products': supplier.total_products,
-                'total_sales': supplier.total_sales,
-            }
-            for supplier in context['suppliers']
-        ]
-        return context
+class InventoryAnalyticsView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'inventory/inventory_analytics.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        # Products with low stock and high sales
+        return Product.objects.annotate(
+            total_sold=Sum('sale__quantity')
+        ).filter(quantity__lte=F('low_stock_threshold')).order_by('-total_sold')
 
 # Sale Views
 class SaleListView(LoginRequiredMixin, ListView):

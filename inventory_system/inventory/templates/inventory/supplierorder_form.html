@@ -5,7 +5,12 @@
 <div class="card p-4">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.supplier.label_tag }} {{ form.supplier }}<br>
+        {{ form.product.label_tag }} {{ form.product }}<br>
+        {{ form.quantity.label_tag }} {{ form.quantity }}<br>
+        {{ form.expected_delivery_date.label_tag }} <input type="date" name="expected_delivery_date" value="{{ form.expected_delivery_date.value|default_if_none:'' }}"><br>
+        {% if form.actual_delivery_date %}{{ form.actual_delivery_date.label_tag }} {{ form.actual_delivery_date }}<br>{% endif %}
+        {{ form.notes.label_tag }} {{ form.notes }}<br>
         <button type="submit" class="btn btn-success">Save</button>
         <a href="{% url 'supplierorder_list' %}" class="btn btn-secondary">Cancel</a>
     </form>

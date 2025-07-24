@@ -16,7 +16,6 @@ urlpatterns = [
     path('suppliers/add/', views.SupplierCreateView.as_view(), name='supplier_add'),
     path('suppliers/<int:pk>/edit/', views.SupplierUpdateView.as_view(), name='supplier_edit'),
     path('suppliers/<int:pk>/delete/', views.SupplierDeleteView.as_view(), name='supplier_delete'),
-    path('suppliers/analytics/', views.SupplierAnalyticsView.as_view(), name='supplier_analytics'),
 
     # Sale URLs
     path('sales/', views.SaleListView.as_view(), name='sale_list'),
@@ -29,4 +28,6 @@ urlpatterns = [
     path('orders/', views.SupplierOrderListView.as_view(), name='supplierorder_list'),
     path('orders/add/', views.SupplierOrderCreateView.as_view(), name='supplierorder_add'),
     path('orders/<int:pk>/edit/', views.SupplierOrderUpdateView.as_view(), name='supplierorder_edit'),
+    path('analytics/sales/', views.SalesAnalyticsView.as_view(), name='sales_analytics'),
+    path('analytics/inventory/', views.InventoryAnalyticsView.as_view(), name='inventory_analytics'),
 ]
