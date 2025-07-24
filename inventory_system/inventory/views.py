@@ -160,23 +160,11 @@ class SupplierOrderCreateView(LoginRequiredMixin, CreateView):
     template_name = 'inventory/supplierorder_form.html'
     success_url = reverse_lazy('supplierorder_list')
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['supplier'].widget = forms.TextInput()
-        form.fields['product'].widget = forms.TextInput()
-        return form
-
 class SupplierOrderUpdateView(LoginRequiredMixin, UpdateView):
     model = SupplierOrder
     fields = ['supplier', 'product', 'quantity', 'expected_delivery_date', 'actual_delivery_date', 'notes']
     template_name = 'inventory/supplierorder_form.html'
     success_url = reverse_lazy('supplierorder_list')
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['supplier'].widget = forms.TextInput()
-        form.fields['product'].widget = forms.TextInput()
-        return form
 
 def export_products_csv(request):
     response = HttpResponse(content_type='text/csv')
