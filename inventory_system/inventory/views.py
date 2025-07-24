@@ -48,6 +48,9 @@ def dashboard(request):
         'notifications': notifications,
     })
 
+def intro_page(request):
+    return render(request, 'inventory/intro.html')
+
 # Product Views
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product

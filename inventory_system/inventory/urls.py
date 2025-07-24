@@ -2,7 +2,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('', views.intro_page, name='intro_page'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 
     # Product URLs
     path('products/', views.ProductListView.as_view(), name='product_list'),

@@ -1,0 +1,17 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Welcome to the Inventory System{% endblock %}
+{% block content %}
+<div class="jumbotron mt-4">
+  <h1 class="display-4">Welcome to the Inventory Management System</h1>
+  <p class="lead">This web application helps you efficiently manage your inventory, suppliers, sales, and supplier orders.</p>
+  <hr class="my-4">
+  <ul>
+    <li><strong>Products:</strong> Track and manage your inventory items.</li>
+    <li><strong>Suppliers:</strong> Maintain a list of suppliers and their contact information.</li>
+    <li><strong>Sales:</strong> Record sales and monitor stock levels.</li>
+    <li><strong>Supplier Orders:</strong> Place and track orders to suppliers.</li>
+    <li><strong>Analytics:</strong> View supplier analytics and inventory forecasts.</li>
+  </ul>
+  <a class="btn btn-primary btn-lg mt-3" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
+</div>
+{% endblock %} 
