@@ -126,8 +126,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Admins for error and notification emails
-ADMINS = [('Admin', 'admin@example.com')]
+ADMINS = [('Admin', 'rtmsogoya@gmail.com')]
 
 # Email backend for development (prints emails to console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@inventorysystem.com'
+DEFAULT_FROM_EMAIL = 'robertmsogoya2@gmail.com'
