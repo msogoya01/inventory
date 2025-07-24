@@ -128,6 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Admins for error and notification emails
 ADMINS = [('Admin', 'rtmsogoya@gmail.com')]
 
+LOGIN_REDIRECT_URL = '/dashboard/'
+
 # Email backend for development (prints emails to console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'robertmsogoya2@gmail.com'
