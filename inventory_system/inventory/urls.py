@@ -1,8 +1,9 @@
 from django.urls import path, include
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.intro_page, name='intro_page'),
+    path('', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('dashboard/', views.dashboard, name='dashboard'),
 
     # Product URLs
